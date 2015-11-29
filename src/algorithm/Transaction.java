@@ -21,7 +21,7 @@ public class Transaction {
      */
     public Transaction() {
         this.first = 0;
-        this.second = new ArrayList();
+        this.second = new ArrayList<Integer>();
     }
 
     /**
@@ -29,7 +29,7 @@ public class Transaction {
      */
     void clear() {
         this.first = 0;
-        this.second = new ArrayList();
+        this.second = new ArrayList<Integer>();
     }
 
 }

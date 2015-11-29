@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import algorithm.PrefixSpan;
 import utils.ReadFile;
@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        HashMap<String, Integer> hm = new HashMap<>();
+        HashMap<String, Integer[]> hm = new HashMap<>();
     	
         //Read params
         String paramsPath = "./params.txt";
@@ -35,11 +35,17 @@ public class Main {
         
     }
 
-    private static void printHashMap(HashMap<String, Integer> hm) {    	
-    	for (Map.Entry<String, Integer> entry : hm.entrySet()) {    	    
-    		System.out.print(entry.getKey());
-    		System.out.print("=");
-    		System.out.println(entry.getValue().toString());
+    private static void printHashMap(HashMap<String, Integer[]> hm) {    	
+    	
+    	System.out.println("{initial sequence} -> [was followed by] (number of times)");
+    	
+    	for (Entry<String, Integer[]> entry : hm.entrySet()) {    	    
+    		
+    		System.out.print("{" + entry.getKey());
+    		System.out.print("} -> [" + entry.getValue()[0] + "]");
+    		System.out.print(" (");
+    		System.out.println(entry.getValue()[1].toString() + ")");
+    		
     	}
     	
     }

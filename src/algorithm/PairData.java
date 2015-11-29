@@ -19,8 +19,8 @@ public class PairData {
      * Class constructor
      */
     public PairData() {
-        this.dataBase = new ArrayList();
-        this.indeces = new ArrayList();
+        this.dataBase = new ArrayList<Transaction>();
+        this.indeces = new ArrayList<Integer>();
     }
     
     /**

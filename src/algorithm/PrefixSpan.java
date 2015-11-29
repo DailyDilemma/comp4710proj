@@ -24,18 +24,18 @@ public class PrefixSpan {
     ///Patterns
     private final List<Integer> pattern;
     // Map of highest pattern counts
-    private final HashMap<String, Integer> hm;
+    private final HashMap<String, Integer[]> hm;
 
     /**
      * Class constructor
      * @param minSup Minimun support
      * @param maxPat Max pattern size
      */
-    public PrefixSpan(int minSup, int maxPat, HashMap<String, Integer> hm) {
+    public PrefixSpan(int minSup, int maxPat, HashMap<String, Integer[]> hm) {
         this.minSup = minSup;
         this.maxPat = maxPat;
         this.hm = hm;
-        this.pattern = new ArrayList();
+        this.pattern = new ArrayList<Integer>();
     }
 
     /**
@@ -71,20 +71,34 @@ public class PrefixSpan {
     public void store_pattern(PairData projected) {
     	
     	String key = "";
-    	int count = 0;
     	int i;
+    	Integer[] pageCount = new Integer[2];
+    	Integer[] maxCount = new Integer[2];
     	
     	// If the pattern is not a sequence of at least 2 items
     	// don't add it to the hashmap
     	if (pattern.size() > 1) {
 	    	
     		for (i=0; i<pattern.size()-1; i++) {
-    			key += pattern.get(i).toString();    			    		
+    			key += pattern.get(i).toString() + ",";    			
     		}
-    		count = pattern.get(i);
+    		key = key.substring(0, key.length()-1);
     		
-    		hm.put(key, count);
+    		pageCount[0] = pattern.get(i);
+    		pageCount[1] = projected.dataBase.size();
+    		
+    		maxCount = hm.get(key);
+    		if (maxCount != null) {
+    			if (pageCount[1] > maxCount[1]) {
+    				hm.put(key, pageCount);
+    			}
+    		} else {
+    			hm.put(key, pageCount);
+    		}
 
+    		// TODO: What to do when two patterns have the same count?
+    		//       Treat them the same?
+    		
     	}
     	
     }
@@ -132,7 +146,7 @@ public class PrefixSpan {
             return;
         }
 
-        Map<Integer, Integer> mapItem = new HashMap();
+        Map<Integer, Integer> mapItem = new HashMap<Integer, Integer>();
         List<Transaction> dataBase = projected.dataBase;
         for (int i = 0; i < dataBase.size(); i++) {
             List<Integer> itemSet = dataBase.get(i).second;

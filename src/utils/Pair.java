@@ -47,7 +47,7 @@ public class Pair<A, B> {
     @Override
     public boolean equals(Object other) {
     	if (other instanceof Pair) {
-    		Pair otherPair = (Pair) other;
+    		Pair<?, ?> otherPair = (Pair<?, ?>) other;
     		return 
     		((  this.first == otherPair.first ||
     			( this.first != null && otherPair.first != null &&
