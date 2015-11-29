@@ -28,10 +28,13 @@ public class Main {
         int max_pat = Integer.parseInt(rf.readLine());
         
         //Execute algorithm
+        System.out.println("Frequent Sequential Patterns");
+        System.out.println("-----------------------------");
         PrefixSpan a = new PrefixSpan(min_sup, max_pat, hm);
-        a.run(filePath);
+        a.run(filePath, 3);
+        //printHashMap(hm);
         
-        printHashMap(hm);
+        System.out.println("\nEnd of processing.");
         
     }
 
@@ -47,7 +50,5 @@ public class Main {
     		System.out.println(entry.getValue()[1].toString() + ")");
     		
     	}
-    	
     }
-
 }
