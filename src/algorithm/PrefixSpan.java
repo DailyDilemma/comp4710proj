@@ -45,14 +45,14 @@ public class PrefixSpan {
      * @param fileName Path to file
      * @param pairData Pair data
      */
-    public void read(String fileName, PairData pairData) {
+    public void read(String fileName, PairData pairData, int maxTransactions) {
         String line;
         int id = 0;
 
         ReadFile readFile = new ReadFile(fileName);
 
         line = readFile.readLine();
-        while (line != null) {
+        while (line != null && maxTransactions > 0) {
             Transaction transaction = new Transaction(); //transaction.clear();
 
             for (String item : line.split(" ")) {
@@ -66,6 +66,7 @@ public class PrefixSpan {
 
             //Next iteration
             line = readFile.readLine();
+            maxTransactions--;
         }
 
     }
@@ -191,7 +192,7 @@ public class PrefixSpan {
      */
     public void run(String file, int numTrainingData) {
         PairData pairData = new PairData(); // Data Base
-        this.read(file, pairData);
+        this.read(file, pairData, numTrainingData*2);
         project(pairData, numTrainingData);
         predict(pairData, numTrainingData);
     }

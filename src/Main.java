@@ -31,7 +31,7 @@ public class Main {
         System.out.println("Frequent Sequential Patterns");
         System.out.println("-----------------------------");
         PrefixSpan a = new PrefixSpan(min_sup, max_pat, hm);
-        a.run(filePath, 3);
+        a.run(filePath, 100);
         //printHashMap(hm);
         
         System.out.println("\nEnd of processing.");
