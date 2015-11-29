@@ -23,15 +23,18 @@ public class PrefixSpan {
     private final int maxPat;
     ///Patterns
     private final List<Integer> pattern;
+    // Map of highest pattern counts
+    private final HashMap<String, Integer> hm;
 
     /**
      * Class constructor
      * @param minSup Minimun support
      * @param maxPat Max pattern size
      */
-    public PrefixSpan(int minSup, int maxPat) {
+    public PrefixSpan(int minSup, int maxPat, HashMap<String, Integer> hm) {
         this.minSup = minSup;
         this.maxPat = maxPat;
+        this.hm = hm;
         this.pattern = new ArrayList();
     }
 
@@ -65,6 +68,27 @@ public class PrefixSpan {
 
     }
 
+    public void store_pattern(PairData projected) {
+    	
+    	String key = "";
+    	int count = 0;
+    	int i;
+    	
+    	// If the pattern is not a sequence of at least 2 items
+    	// don't add it to the hashmap
+    	if (pattern.size() > 1) {
+	    	
+    		for (i=0; i<pattern.size()-1; i++) {
+    			key += pattern.get(i).toString();    			    		
+    		}
+    		count = pattern.get(i);
+    		
+    		hm.put(key, count);
+
+    	}
+    	
+    }
+    
     /**
      * Print frequent sequential patterns
      * @param projected Pair data
@@ -101,8 +125,9 @@ public class PrefixSpan {
             return;
         }
 
-        this.print_pattern(projected);
-
+        //this.print_pattern(projected);
+        this.store_pattern(projected);
+        
         if (maxPat != 0 && pattern.size() == maxPat) {
             return;
         }

@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 import algorithm.PrefixSpan;
 import utils.ReadFile;
 
@@ -14,6 +17,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        HashMap<String, Integer> hm = new HashMap<>();
+    	
         //Read params
         String paramsPath = "./params.txt";
         ReadFile rf = new ReadFile((paramsPath));
@@ -22,12 +28,20 @@ public class Main {
         int max_pat = Integer.parseInt(rf.readLine());
         
         //Execute algorithm
-        PrefixSpan a = new PrefixSpan(min_sup, max_pat);
+        PrefixSpan a = new PrefixSpan(min_sup, max_pat, hm);
         a.run(filePath);
+        
+        printHashMap(hm);
+        
     }
 
-    private void readParams() {
-        //Read params.txt
+    private static void printHashMap(HashMap<String, Integer> hm) {    	
+    	for (Map.Entry<String, Integer> entry : hm.entrySet()) {    	    
+    		System.out.print(entry.getKey());
+    		System.out.print("=");
+    		System.out.println(entry.getValue().toString());
+    	}
+    	
     }
 
 }
